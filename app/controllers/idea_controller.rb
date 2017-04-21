@@ -1,7 +1,7 @@
 class IdeaController < ApplicationController
   def index
     @user = User.find_by_id(session[:user_id])
-    @ideas = Idea.all.includes(:user, :likes).order(:likes_count)
+    @ideas = Idea.all.includes(:user, :likes).order(:likes_count).reverse_order
     @likes = Like.all
   end
 
