@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+    <header>
+        <% if flash[:errors] %>
+            <% flash[:errors].each do |e| %>
+            <p id="error"><%= e %></p>  
+            <% end %>
+        <% end %>
+        <div id="header_container">
+                <h2>Hello, <%= @user.name %></h2>
+                <a href="/logout" class='btn btn-default'>Logout</a>
+        </div>
+    </header>
+    <body>
+        <div class="post_content">
+            <h3>New idea</h3>
+            <form action="/ideas/new" method="POST">
+                <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+                <input type="text" class="form-control" id="idea" name="ideas[content]" value=""></textarea>
+                <input type="hidden" name="ideas[user_id]" value="<%=@user.id%>">
+                <input type="submit" value="Post content" class="content_submit">
+            </form>
+        </div>
+        <div>
+            <div class='row col-md-1' style='display:inline-block; width: 500px; margin: 0; vertical-align: top'>
+                <% @ideas.each do |post| %>
+                        <div class="post_group">
+                            <p><a href="/users/<%=post.user.id%>"><%=post.user.alias%></a> says:</p>
+                            <p class="message_content"><%= post.content %></p>
+                            <form action="ideas/<%= post['id']%>/like/<%= @user.id%>" method="POST">
+                                <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+                                <input type="hidden" name="likes[idea_id]" id="likes" value="<%=post.id%>">
+                                <input type="hidden" name="likes[user_id]" id="likes" value="<%=@user.id%>">
+                                <input type="submit" value="like">
+                            </form>
+                            <p><a href="/ideas/<%=post.id%>"><%= post.likes.count %> people</a> like this</p>
+                        </div>
+                <% end %>
+            </div>
+        </div>
+    </body>
+</html>
+                        
+                            

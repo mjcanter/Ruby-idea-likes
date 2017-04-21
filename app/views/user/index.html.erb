@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+    <header>
+        <% if flash[:errors] %>
+            <% flash[:errors].each do |e| %>
+            <p id="error"><%= e %></p>  
+            <% end %>
+        <% end %>
+        <div id="header_container">
+                <a href="/ideas">Ideas Page</a>
+                <br>
+                <a href="/logout">Logout</a>
+        </div>
+    </header>
+    <body>
+        <div>
+            <h3>Name: <%= @user.name %></h3>
+            <h3>Alias: <%= @user.alias %></h3>
+            <h3>Email: <%= @user.email %></h3>
+        </div>
+        <div>
+            <p>Total Number of posts:<%= @ideas.count %></p>
+            <p>Total Number of Likes:<%= @likes.count %></p>
+        </div>
+    </body>
+</html>
